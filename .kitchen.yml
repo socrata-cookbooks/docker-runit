@@ -1,0 +1,33 @@
+---
+driver:
+  name: ec2
+  region: us-west-2
+  aws_ssh_key_id: shared-bootstrap
+  instance_type: m3.medium
+  subnet_id: subnet-3050df55 # an arbitrary staging service subnet
+  require_chef_omnibus: true
+
+transport:
+  ssh_key: ~/.ssh/aws-bootstrap-key
+  
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+    image_id: ami-9c47b6fc
+
+suites:
+  - name: default
+    driver:
+      tags:
+        Name: 'kitchen-docker-runit'
+      security_group_ids: ['sg-9e853dfa']
+      iam_profile_name: 'staging-mesos-marathon-master-stack-InstanceProfileObject-15L3R19LURP0S'
+    run_list:
+        - "recipe[apt]"
+        - "recipe[test-docker-runit]"
+    attributes:
+        apt:
+            compile_time_update: true
+        
