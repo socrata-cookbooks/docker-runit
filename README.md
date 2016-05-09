@@ -9,13 +9,25 @@ Requirements
 Usage
 =====
 
-Add the default recipe to your node's run_list.
+Add docker\_runit to your metadata depends and then create a docker\_runit\_service
+resource in your recipe. e.g. 
 
-Recipes
-=======
+```ruby
+docker_runit_service 'test-image' do
+  image node['image']
+  environment_variables node['env_vars']
+  ports node['ports']
+  volumes node['volumes']
+  run_command 'sleep 10'
+end
+```
 
-Attributes
-==========
+The attribute can come from an arbirary location or be hardcoded in the recipe
+during resource creation.
+
+If you have not already done so, include the default
+recipe to install docker.
+
 
 Contributing
 ============
