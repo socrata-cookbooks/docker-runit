@@ -20,6 +20,10 @@
 
 include_recipe 'runit'
 
+
 docker_service 'default' do
+  if node['docker'] && node['docker']['insecure-registry']
+    insecure_registry node['docker']['insecure-registry']
+  end
   action [:create, :start]
 end

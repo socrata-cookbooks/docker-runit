@@ -23,7 +23,14 @@ def volumes
 end
 
 action :create do
-  docker_image new_resource.image do
+  if new_resource.registry
+    image = "#{new_resource.registry}/#{new_resource.image}"
+  else
+    image = "#{new_resource.image}"
+  end
+
+  docker_image image do
+    tag new_resource.tag
     action :pull
   end
 
@@ -38,7 +45,7 @@ action :create do
       envvars,
       ports,
       volumes,
-      new_resource.image,
+      "#{image}:#{new_resource.tag}",
       new_resource.run_command
     ].join(' ')
   end
