@@ -35,7 +35,7 @@ action :create do
   end
 
   runit = runit_service new_resource.name do
-    action :create
+    action [:enable, :start]
     template_name 'generic'
     cookbook 'docker-runit'
     default_logger true

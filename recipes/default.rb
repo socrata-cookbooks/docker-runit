@@ -20,8 +20,3 @@
 
 include_recipe 'runit'
 include_recipe 'docker-legacy'
-
-bash 'start-docker' do
-  code '/bin/true'
-  notifies :start, 'runit_service[docker]'
-end
