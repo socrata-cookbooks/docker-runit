@@ -3,7 +3,13 @@
 source 'https://supermarket.chef.io'
 
 metadata
-cookbook 'apt'
+
+cookbook 'apt', '~> 2.0'
+cookbook 'build-essential', '= 2.1.3'
+cookbook 'iptables', '0.14.1'
+
+cookbook 'docker-legacy',
+         github: 'socrata-cookbooks/chef-docker-legacy'
 
 group :integration do
   cookbook 'test-docker-runit',

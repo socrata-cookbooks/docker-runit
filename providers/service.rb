@@ -29,7 +29,7 @@ action :create do
     image = "#{new_resource.image}"
   end
 
-  docker_image image do
+  docker_legacy_image image do
     tag new_resource.tag
     action :pull
   end

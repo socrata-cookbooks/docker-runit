@@ -19,11 +19,9 @@
 #
 
 include_recipe 'runit'
+include_recipe 'docker-legacy'
 
-
-docker_service 'default' do
-  if node['docker'] && node['docker']['insecure-registry']
-    insecure_registry node['docker']['insecure-registry']
-  end
-  action [:create, :start]
+bash 'start-docker' do
+  code '/bin/true'
+  notifies :start, 'runit_service[docker]'
 end
