@@ -6,9 +6,10 @@ maintainer_email 'sysadmin@socrata.com'
 license          'All rights reserved'
 description      'LWRP for running a docker container via runit'
 long_description 'LWRP for running a docker container via runit'
-version          '0.2.0'
+version          '0.3.0'
 
 depends          'runit'
-depends 'docker-legacy'
+depends          'docker-legacy'
+depends          'cronic'
 
 supports         'ubuntu'

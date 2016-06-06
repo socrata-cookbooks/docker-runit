@@ -18,5 +18,22 @@
 # limitations under the License.
 #
 
+include_recipe 'cronic'
 include_recipe 'runit'
 include_recipe 'docker-legacy'
+
+file '/usr/local/bin/clean_docker_images' do
+  owner 'root'
+  group 'root'
+  mode 744
+  content <<-EOF
+  #!/bin/bash
+  ionice -c idle docker rm -v $(docker ps -a -q) > /dev/null 2>&1 || /bin/true
+  ionice -c idle docker rmi $(docker images -q) > /dev/null 2>&1 || /bin/true
+  EOF
+end
+
+cronic 'delete old images' do
+  command '/usr/local/bin/clean_docker_images'
+  time :midnight
+end
