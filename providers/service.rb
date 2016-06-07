@@ -50,21 +50,17 @@ action :create do
     ].join(' ')
   end
 
-  ruby_block "enable-#{new_resource.name}" do
-    block do
-      Chef::Log.debug("Enabling #{new_resource.name}")
-    end
-    notifies :enable, runit, :delayed
-  end
-
-  ruby_block "start-#{new_resource.name}" do
-    block do
-      Chef::Log.debug("Starting #{new_resource.name}")
-    end
-    notifies :start, runit, :delayed
-  end
-
   new_resource.updated_by_last_action(runit.updated_by_last_action?)
+
+  if new_resource.updated_by_last_action?
+    ruby_block "restart-#{new_resource.name}" do
+      block do
+        Chef::Log.debug("Restarting #{new_resource.name}")
+      end
+      notifies :restart, runit, :immediately
+    end
+  end
+
 end
 
 action :remove do
