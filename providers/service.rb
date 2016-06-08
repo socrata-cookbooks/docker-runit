@@ -39,7 +39,6 @@ action :create do
     template_name 'generic'
     cookbook 'docker-runit'
     default_logger true
-    start_down true
     options command: [
       'docker run --rm',
       envvars,
