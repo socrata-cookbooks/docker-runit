@@ -22,3 +22,5 @@ default['ports'] = [
     protocol: 'tcp'
   }
 ]
+
+default['log_size'] = 104857600

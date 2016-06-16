@@ -39,6 +39,7 @@ action :create do
     template_name 'generic'
     cookbook 'docker-runit'
     default_logger true
+    log_size new_resource.log_size
     options command: [
       'docker run --rm',
       envvars,
@@ -46,7 +47,8 @@ action :create do
       volumes,
       "#{image}:#{new_resource.tag}",
       new_resource.run_command
-    ].join(' ')
+            ].join(' '),
+            log_size: 100000000
   end
 
   ruby_block "enable-#{new_resource.name}" do

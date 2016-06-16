@@ -6,6 +6,7 @@ docker_runit_service 'test-image' do
   end
   image node['image']
   tag node['tag'] || 'latest'
+  log_size node['log_size']
   environment_variables node['env_vars']
   ports node['ports']
   volumes node['volumes']
