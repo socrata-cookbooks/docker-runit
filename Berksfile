@@ -9,7 +9,7 @@ cookbook 'build-essential', '= 2.1.3'
 cookbook 'iptables', '0.14.1'
 
 cookbook 'cronic',
-         git: 'git@git.socrata.com:azure-chef-repo',
+         git: 'git@github.com:socrata/azure-chef-repo',
          rel: 'cookbooks/cronic'
 cookbook 'docker-legacy',
          github: 'socrata-cookbooks/chef-docker-legacy'
