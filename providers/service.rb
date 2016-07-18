@@ -40,8 +40,10 @@ action :create do
     cookbook 'docker-runit'
     default_logger true
     log_size new_resource.log_size
+    restart_on_update new_resource.restart_on_update
     options command: [
       'docker run --rm',
+      "--name #{new_resource.name}",
       envvars,
       ports,
       volumes,

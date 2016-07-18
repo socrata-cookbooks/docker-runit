@@ -9,3 +9,4 @@ attribute :log_size, kind_of: Integer, default: nil
 attribute :volumes, kind_of: Array, default: []
 attribute :ports, kind_of: Array, default: []
 attribute :run_command, kind_of: String, default: ''
+attribute :restart_on_update, kind_of: [TrueClass, FalseClass], default: true
