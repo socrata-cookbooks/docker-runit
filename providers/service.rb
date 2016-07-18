@@ -4,7 +4,7 @@ def whyrun_supported?
   true
 end
 
-def envvars
+def env_vars
   new_resource.environment_variables.map do |k, v|
     "-e #{k}=#{v}"
   end.join(' ')
@@ -44,7 +44,7 @@ action :create do
     options command: [
       'docker run --rm',
       "--name #{new_resource.name}",
-      envvars,
+      env_vars,
       ports,
       volumes,
       "#{image}:#{new_resource.tag}",
