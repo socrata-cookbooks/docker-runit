@@ -4,7 +4,7 @@ def whyrun_supported?
   true
 end
 
-def envvars
+def env_vars
   new_resource.environment_variables.map do |k, v|
     "-e #{k}=#{v}"
   end.join(' ')
@@ -40,9 +40,11 @@ action :create do
     cookbook 'docker-runit'
     default_logger true
     log_size new_resource.log_size
+    restart_on_update new_resource.restart_on_update
     options command: [
       'docker run --rm',
-      envvars,
+      "--name #{new_resource.name}",
+      env_vars,
       ports,
       volumes,
       "#{image}:#{new_resource.tag}",
