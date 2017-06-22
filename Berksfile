@@ -1,19 +1,10 @@
-# Encoding: UTF-8
+# encoding: utf-8
+# frozen_string_literal: true
 
-source 'https://supermarket.chef.io'
+source artifactory: 'https://repo.socrata.com/artifactory/api/chef/chef'
 
 metadata
 
-cookbook 'apt', '~> 2.0'
-cookbook 'build-essential', '= 2.1.3'
-cookbook 'iptables', '0.14.1'
-
-cookbook 'cronic',
-         git: 'git@github.com:socrata-cookbooks/cronic'
-cookbook 'docker-legacy',
-         github: 'socrata-cookbooks/chef-docker-legacy'
-
 group :integration do
-  cookbook 'test-docker-runit',
-           path: 'test/fixtures/cookbooks/test-docker-runit'
+  cookbook 'test-docker-runit', path: 'test/fixtures/cookbooks/test-docker-runit'
 end
